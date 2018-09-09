@@ -1,6 +1,6 @@
 # Watchy
 
-Everybody has to trace his time even at work. For me it was a first and had to find a software for it. 4 hours later and more than 40 diffirent types of software looked at I just had to make a better and lighter one. That is how Watchy was born. It isn't anything special just hated my mac lagging because of a "stop watch" who was using 500 mb of ram ...
+Everybody has to trace his time even at work. For me it was a first and had to find a software for it. 4 hours later and more than 40 different types of software looked at I just had to make a better and lighter one. That is how Watchy was born. It isn't anything special just hated my mac lagging because of a "stop watch" who was using 500 MB of ram ...
 
 ## Getting Started
 If you feel I am missing interesting things, put it on the [issues](https://github.com/mrgkanev/watchy/issues) and I'll definitely try it out.
@@ -17,7 +17,7 @@ If you feel I am missing interesting things, put it on the [issues](https://gith
 Start:
 
 * You can use it in the browser no need to download and "install" it anywhere. It is hosted on GitHub servers so no info or anything is stored anywhere.
-This is the url : http://watchy.mrgkanev.eu
+This is the URL : https://watchy.mrgkanev.eu
 
 ## Example
 
