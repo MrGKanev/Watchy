@@ -1,3 +1,15 @@
 .btn-default {
 	margin-left: 60px;
 }
+li:hover {
+	background-color: pink;
+}
+
+li .glyphicon:hover {
+	color: red;
+}
+
+li .list-item {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
