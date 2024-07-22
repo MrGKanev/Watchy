@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addTrackerButton = document.getElementById('add-tracker');
     const exportCsvButton = document.getElementById('export-csv');
     const exportTxtButton = document.getElementById('export-txt');
+    const clearAllButton = document.getElementById('clear-all');
     const favicon = document.getElementById('favicon');
 
     const defaultFavicon = 'src/img/favicon.ico';
@@ -126,6 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(link);
     }
 
+    function clearAllTrackers() {
+        trackers = [];
+        updateTabTitle();
+        saveTrackers();
+        renderTrackers();
+    }
+
     function updateTabTitle() {
         if (trackers.some(tracker => tracker.running)) {
             document.title = "Tracker Running...";
@@ -144,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     exportCsvButton.addEventListener('click', exportToCsv);
     exportTxtButton.addEventListener('click', exportToTxt);
+    clearAllButton.addEventListener('click', clearAllTrackers);
 
     trackerContainer.addEventListener('click', (e) => {
         if (e.target.classList.contains('start-stop-btn')) {
