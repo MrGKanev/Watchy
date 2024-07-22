@@ -95,6 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
         saveTrackers();
     }
 
+    function getCurrentDateString() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
     function exportToCsv() {
         let csvContent = "data:text/csv;charset=utf-8,Comment,Elapsed Time (HH:MM:SS)\n";
         trackers.forEach(tracker => {
@@ -103,8 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement('a');
+        const dateStr = getCurrentDateString();
         link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'trackers.csv');
+        link.setAttribute('download', `trackers_${dateStr}.csv`);
         document.body.appendChild(link);
 
         link.click();
@@ -119,8 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const blob = new Blob([txtContent], { type: 'text/plain' });
         const link = document.createElement('a');
+        const dateStr = getCurrentDateString();
         link.href = URL.createObjectURL(blob);
-        link.download = 'trackers.txt';
+        link.download = `trackers_${dateStr}.txt`;
         document.body.appendChild(link);
 
         link.click();
