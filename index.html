@@ -14,13 +14,15 @@
 
 <body class="bg-gray-100 p-6">
     <div class="container mx-auto">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold">Watchy - Time Tracker</h1>
-            <div>
-                <button id="add-tracker" class="px-4 py-2 bg-blue-500 text-white rounded">Add Tracker</button>
-                <button id="export-csv" class="px-4 py-2 bg-green-500 text-white rounded ml-2">Export CSV</button>
-                <button id="export-txt" class="px-4 py-2 bg-yellow-500 text-white rounded ml-2">Export TXT</button>
-                <button id="clear-all" class="px-4 py-2 bg-red-500 text-white rounded ml-2">Clear All</button>
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold mb-4 sm:mb-0">Watchy - Time Tracker</h1>
+            <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                <div class="w-full sm:w-auto flex flex-wrap gap-2">
+                    <button id="add-tracker" class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-blue-500 text-white rounded">Add Tracker</button>
+                    <button id="export-csv" class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-green-500 text-white rounded">Export CSV</button>
+                    <button id="export-txt" class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-yellow-500 text-white rounded">Export TXT</button>
+                    <button id="clear-all" class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-red-500 text-white rounded">Clear All</button>
+                </div>
             </div>
         </div>
         <div id="tracker" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>

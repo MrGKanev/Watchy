@@ -23,11 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
             trackerElement.className = 'bg-white p-4 rounded shadow';
 
             trackerElement.innerHTML = `
-                <div class="flex justify-between items-center mb-2">
-                    <input type="text" value="${tracker.comment}" placeholder="Add a comment" class="comment-input border p-2 flex-1 mr-2 rounded" data-index="${index}" />
-                    <button class="start-stop-btn px-2 py-1 bg-${tracker.running ? 'red' : 'green'}-500 text-white rounded" data-index="${index}">${tracker.running ? 'Stop' : 'Start'}</button>
-                    <button class="restart-btn px-2 py-1 bg-yellow-500 text-white rounded ml-2" data-index="${index}">Restart</button>
-                    <button class="delete-btn px-2 py-1 bg-gray-500 text-white rounded ml-2" data-index="${index}">Delete</button>
+                <div class="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:items-center justify-between mb-2">
+                    <input type="text" value="${tracker.comment}" placeholder="Add a comment" class="comment-input border p-2 flex-1 rounded" data-index="${index}" />
+                    <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2 sm:mt-0">
+                        <button class="start-stop-btn px-6 py-3 sm:px-4 sm:py-2 bg-${tracker.running ? 'red' : 'green'}-500 text-white rounded" data-index="${index}">${tracker.running ? 'Stop' : 'Start'}</button>
+                        <button class="restart-btn px-6 py-3 sm:px-4 sm:py-2 bg-yellow-500 text-white rounded" data-index="${index}">Restart</button>
+                        <button class="delete-btn px-6 py-3 sm:px-4 sm:py-2 bg-gray-500 text-white rounded" data-index="${index}">Delete</button>
+                    </div>
                 </div>
                 <div class="text-gray-700">Elapsed Time: <span class="elapsed-time" data-index="${index}">${formatTime(tracker.elapsed)}</span></div>
             `;
