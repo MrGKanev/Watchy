@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="delete-btn px-6 py-3 sm:px-4 sm:py-2 bg-gray-500 text-white rounded" data-index="${index}">Delete</button>
                     </div>
                 </div>
-                <div class="text-gray-700">Elapsed Time: <span class="elapsed-time" data-index="${index}">${formatTime(tracker.elapsed)}</span></div>
+                <div class="text-gray-700">Elapsed Time: <input type="text" class="elapsed-time border p-2 rounded" data-index="${index}" value="${formatTime(tracker.elapsed)}" /></div>
             `;
 
             trackerContainer.appendChild(trackerElement);
@@ -44,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function parseTime(timeStr) {
+        const [hours, minutes, seconds] = timeStr.split(':').map(Number);
+        return (hours * 3600 + minutes * 60 + seconds) * 1000;
     }
 
     function startTracker(index) {
@@ -95,6 +100,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateComment(index, comment) {
         trackers[index].comment = comment;
         saveTrackers();
+    }
+
+    function updateElapsedTime(index, timeStr) {
+        const elapsedMs = parseTime(timeStr);
+        if (!isNaN(elapsedMs)) {
+            trackers[index].elapsed = elapsedMs;
+            if (trackers[index].running) {
+                trackers[index].startTime = Date.now();
+            }
+            saveTrackers();
+            renderTrackers();
+        }
     }
 
     function getCurrentDateString() {
@@ -188,6 +205,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('comment-input')) {
             const index = e.target.getAttribute('data-index');
             updateComment(index, e.target.value);
+        } else if (e.target.classList.contains('elapsed-time')) {
+            const index = e.target.getAttribute('data-index');
+            updateElapsedTime(index, e.target.value);
         }
     });
 
@@ -197,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const index = el.getAttribute('data-index');
             if (trackers[index].running) {
                 const elapsed = Date.now() - trackers[index].startTime + trackers[index].elapsed;
-                el.textContent = formatTime(elapsed);
+                el.value = formatTime(elapsed);
             }
         });
     }
