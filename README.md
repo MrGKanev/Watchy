@@ -2,28 +2,20 @@
 
 Everybody has to trace his time even at work. Years ago I had to trace it and coudn't find a good and lite software for it. This is how Watch is born. 
 
-## Features
 
-* Simple
-* Easy to use
-* Light
-* No need to install anything
-* Mobile friendly
-* No ads
-* No tracking
+## Useful Commands
 
-## Getting Started
-If you feel I am missing interesting things, put it on the [issues](https://github.com/mrgkanev/watchy/issues) and I'll definitely try it out.
+* Continuously watch for changes in the `style.css` file, updating the output file whenever changes occur.
 
+```bash
+npx @tailwindcss/cli -i ./assets/style.css -o ./assets/style.min.css --watch
+```
 
-### Prerequisites
-- Browser
+* Generate a minified version of the CSS
 
-
-
-## Built With
-
-- [Github Pages](https://pages.github.com/) - Hosted directly from your GitHub repository. Just edit, push, and your changes are live.
+```bash
+npx @tailwindcss/cli -i ./assets/style.css -o ./assets/style.min.css --minify 
+```
 
 ## License
 

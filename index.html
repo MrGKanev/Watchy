@@ -4,35 +4,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A simple time tracker application.">
+    <meta name="description"
+        content="Watchy - A simple, lightweight time tracker application for work and personal projects.">
     <meta name="author" content="Gabriel Kanev">
-    <meta name="keywords" content="time tracker, productivity">
+    <meta name="keywords" content="time tracker, productivity, time management, work tracking, time logging">
+    <meta name="theme-color" content="#3B82F6">
+    <meta property="og:title" content="Watchy - Time Tracker">
+    <meta property="og:description"
+        content="Track your time easily with Watchy - a lightweight, browser-based time tracking solution.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://watchy.gkanev.com">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Watchy - Time Tracker">
+    <meta name="twitter:description"
+        content="Track your time easily with Watchy - a lightweight, browser-based time tracking solution.">
     <title>Watchy - Time Tracker</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link rel="icon" href="src/img/favicon.ico" type="image/x-icon" id="favicon">
+    <link href="/assets/style.min.css" rel="stylesheet">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" id="favicon">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="canonical" href="https://watchy.gkanev.com">
 </head>
 
 <body class="bg-gray-100 p-6">
     <div class="container mx-auto">
-        <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold mb-4 sm:mb-0">Watchy - Time Tracker</h1>
-            <div class="flex flex-wrap gap-2 w-full sm:w-auto">
-                <div class="w-full sm:w-auto flex flex-wrap gap-2">
-                    <button id="add-tracker" class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-blue-500 text-white rounded">Add Tracker</button>
-                    <button id="export-csv" class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-green-500 text-white rounded">Export CSV</button>
-                    <button id="export-txt" class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-yellow-500 text-white rounded">Export TXT</button>
-                    <button id="clear-all" class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-red-500 text-white rounded">Clear All</button>
+        <header class="mb-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <h1 class="text-2xl font-bold mb-4 sm:mb-0">Watchy - Time Tracker</h1>
+                <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                    <div class="w-full sm:w-auto flex flex-wrap gap-2">
+                        <button id="add-tracker"
+                            class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">Add
+                            Tracker</button>
+                        <button id="export-csv"
+                            class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">Export
+                            CSV</button>
+                        <button id="export-txt"
+                            class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition">Export
+                            TXT</button>
+                        <button id="clear-all"
+                            class="flex-1 min-w-[calc(50%-0.25rem)] sm:min-w-0 px-6 py-3 sm:px-4 sm:py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">Clear
+                            All</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="tracker" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+        </header>
+        <main>
+            <div id="tracker" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+        </main>
     </div>
-    <footer class="mt-10 text-center">
-        <p>© <span id="current-year"></span> <a href="https://gkanev.com" class="text-blue-500 hover:underline" target="_blank">Gabriel Kanev</a></p>
+    <footer class="mt-10 text-center text-gray-700">
+        <p>© <span id="current-year"></span> <a href="https://gkanev.com"
+                class="text-blue-500 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded"
+                target="_blank" rel="noopener">Gabriel Kanev</a></p>
     </footer>
-    <script src="src/app.js"></script>
+    <script src="/assets/app.js"></script>
     <script>
         document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Watchy - Time Tracker",
+        "description": "A simple, lightweight time tracker application for work and personal projects.",
+        "author": {
+            "@type": "Person",
+            "name": "Gabriel Kanev",
+            "url": "https://gkanev.com"
+        },
+        "applicationCategory": "Productivity",
+        "operatingSystem": "Any"
+    }
     </script>
 </body>
 

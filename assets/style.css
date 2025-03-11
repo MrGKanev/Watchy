@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/* Custom styles for active trackers */
+.tracker-active {
+  position: relative;
+  overflow: hidden;
+}
+
+.tracker-active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background-color: var(--color-green-500);
+  animation: pulse 1.5s ease-in-out infinite;
+  width: 100%;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Improve focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-blue-500);
+  outline-offset: 2px;
+}
+
+/* Add dark mode support */
+@media (prefers-color-scheme: dark) {
+  .dark-mode-enabled body {
+    background-color: var(--color-gray-900);
+    color: var(--color-gray-100);
+  }
+
+  .dark-mode-enabled .bg-white {
+    background-color: var(--color-gray-800);
+  }
+
+  .dark-mode-enabled .text-gray-700 {
+    color: var(--color-gray-300);
+  }
+}
