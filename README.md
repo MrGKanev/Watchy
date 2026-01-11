@@ -1,22 +1,61 @@
-# Watchy
+# Watchy - Time Tracker
 
-Everybody has to trace his time even at work. Years ago I had to trace it and coudn't find a good and lite software for it. This is how Watch is born. 
+A free, lightweight time tracker for work and personal projects. Track multiple tasks simultaneously, export your data, and work completely offline - no sign up required.
 
+**Live Demo:** [watchy.gkanev.com](https://watchy.gkanev.com)
 
-## Useful Commands
+## Features
 
-* Continuously watch for changes in the `style.css` file, updating the output file whenever changes occur.
+- **Multiple Trackers** - Track multiple tasks simultaneously
+- **Active Trackers on Top** - Running trackers automatically move to the top for easy access
+- **Dark/Light Theme** - Toggle between themes or follow system preference
+- **Export Data** - Export to CSV or .txt format
+- **Offline First** - All data stored locally in your browser
+- **No Account Required** - Just open and start tracking
+- **Keyboard Shortcuts** - Power user friendly
+- **PWA Ready** - Install as a standalone app
+
+## Keyboard Shortcuts
+
+| Shortcut  |     Action      |
+|-----------|-----------------|
+| `Alt + N` | Add new tracker |
+| `Alt + E` | Export to CSV   |
+
+## Development
+
+### Prerequisites
+
+- Node.js (v18+)
+- npm
+
+### Installation
 
 ```bash
-npx @tailwindcss/cli -i ./assets/style.css -o ./assets/style.min.css --watch
+npm install
 ```
 
-* Generate a minified version of the CSS
+### Commands
 
 ```bash
-npx @tailwindcss/cli -i ./assets/style.css -o ./assets/style.min.css --minify 
+# Build minified CSS for production
+npm run build
+
+# Watch for CSS changes during development
+npm run watch
 ```
+
+## Technologies
+
+- **Vanilla JavaScript** - No frameworks, fast and lightweight
+- **TailwindCSS v4** - Utility-first CSS
+- **LocalStorage** - Client-side data persistence
+- **PWA** - Progressive Web App support
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Author
+
+Created by [Gabriel Kanev](https://gkanev.com)

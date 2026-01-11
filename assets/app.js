@@ -5,9 +5,44 @@ document.addEventListener("DOMContentLoaded", () => {
   const exportTxtButton = document.getElementById("export-txt");
   const clearAllButton = document.getElementById("clear-all");
   const favicon = document.getElementById("favicon");
+  const themeToggle = document.getElementById("theme-toggle");
+  const themeIconLight = document.getElementById("theme-icon-light");
+  const themeIconDark = document.getElementById("theme-icon-dark");
 
   const defaultFavicon = "assets/img/favicon.ico";
-  const activeFavicon = "assets/img/favicon-active.ico"; // Ensure you have this icon in your assets/img folder
+  const activeFavicon = "assets/img/favicon-active.ico";
+
+  // Theme management
+  function getThemePreference() {
+    const stored = localStorage.getItem("theme");
+    if (stored) return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.body.classList.toggle("dark", theme === "dark");
+    // Update icons
+    if (theme === "dark") {
+      themeIconLight.classList.remove("hidden");
+      themeIconDark.classList.add("hidden");
+    } else {
+      themeIconLight.classList.add("hidden");
+      themeIconDark.classList.remove("hidden");
+    }
+    localStorage.setItem("theme", theme);
+  }
+
+  // Initialize theme
+  applyTheme(getThemePreference());
+
+  // Theme toggle event
+  themeToggle.addEventListener("click", () => {
+    const currentTheme = localStorage.getItem("theme") || getThemePreference();
+    applyTheme(currentTheme === "dark" ? "light" : "dark");
+  });
 
   // Load trackers from localStorage
   let trackers = JSON.parse(localStorage.getItem("trackers")) || [];
@@ -16,54 +51,114 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("trackers", JSON.stringify(trackers));
   }
 
+  // Create tracker element using safe DOM methods (prevents XSS)
+  function createTrackerElement(tracker, index) {
+    const trackerElement = document.createElement("div");
+    trackerElement.className =
+      "tracker-card bg-white dark:bg-gray-800 p-4 rounded shadow transition";
+    trackerElement.setAttribute("data-index", index);
+
+    // Main container
+    const mainDiv = document.createElement("div");
+    mainDiv.className =
+      "flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:items-center justify-between mb-2";
+
+    // Comment input (safely set value)
+    const commentInput = document.createElement("input");
+    commentInput.type = "text";
+    commentInput.id = `comment-${index}`;
+    commentInput.value = tracker.comment; // Safe: value property doesn't execute HTML
+    commentInput.placeholder = "Add a comment";
+    commentInput.className =
+      "comment-input border p-2 flex-1 rounded sm:mr-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white";
+    commentInput.setAttribute("data-index", index);
+    commentInput.setAttribute("aria-label", "Tracker comment");
+
+    // Buttons container
+    const buttonsDiv = document.createElement("div");
+    buttonsDiv.className =
+      "flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2 sm:mt-0";
+
+    // Start/Stop button with static classes for TailwindCSS
+    const startStopBtn = document.createElement("button");
+    startStopBtn.className = `start-stop-btn px-6 py-3 sm:px-4 sm:py-2 text-white rounded transition ${
+      tracker.running
+        ? "bg-red-500 hover:bg-red-600"
+        : "bg-green-500 hover:bg-green-600"
+    }`;
+    startStopBtn.setAttribute("data-index", index);
+    startStopBtn.setAttribute(
+      "aria-label",
+      `${tracker.running ? "Stop" : "Start"} tracker`
+    );
+    startStopBtn.textContent = tracker.running ? "Stop" : "Start";
+
+    // Restart button
+    const restartBtn = document.createElement("button");
+    restartBtn.className =
+      "restart-btn px-6 py-3 sm:px-4 sm:py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition";
+    restartBtn.setAttribute("data-index", index);
+    restartBtn.setAttribute("aria-label", "Restart tracker");
+    restartBtn.textContent = "Restart";
+
+    // Delete button
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className =
+      "delete-btn px-6 py-3 sm:px-4 sm:py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition";
+    deleteBtn.setAttribute("data-index", index);
+    deleteBtn.setAttribute("aria-label", "Delete tracker");
+    deleteBtn.textContent = "Delete";
+
+    buttonsDiv.append(startStopBtn, restartBtn, deleteBtn);
+    mainDiv.append(commentInput, buttonsDiv);
+
+    // Tracked time section
+    const elapsedDiv = document.createElement("div");
+    elapsedDiv.className = "tracked-time-section";
+
+    const elapsedLabel = document.createElement("label");
+    elapsedLabel.htmlFor = `elapsed-time-${index}`;
+    elapsedLabel.className = "inline-block mr-2 font-medium";
+    elapsedLabel.textContent = "Tracked:";
+
+    const elapsedInput = document.createElement("input");
+    elapsedInput.type = "text";
+    elapsedInput.id = `elapsed-time-${index}`;
+    elapsedInput.className =
+      "elapsed-time border p-2 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white";
+    elapsedInput.setAttribute("data-index", index);
+    elapsedInput.value = formatTime(tracker.elapsed);
+    elapsedInput.setAttribute("aria-label", "Elapsed time");
+
+    elapsedDiv.append(elapsedLabel, elapsedInput);
+    trackerElement.append(mainDiv, elapsedDiv);
+
+    return trackerElement;
+  }
+
   function renderTrackers() {
     trackerContainer.innerHTML = "";
-    trackers.forEach((tracker, index) => {
-      const trackerElement = document.createElement("div");
-      trackerElement.className = "bg-white p-4 rounded shadow transition";
-      trackerElement.setAttribute("data-index", index);
 
-      trackerElement.innerHTML = `
-                <div class="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:items-center justify-between mb-2">
-                    <input type="text" value="${
-                      tracker.comment
-                    }" placeholder="Add a comment" 
-                           class="comment-input border p-2 flex-1 rounded sm:mr-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none" 
-                           data-index="${index}" 
-                           aria-label="Tracker comment" />
-                    <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 mt-2 sm:mt-0">
-                        <button class="start-stop-btn px-6 py-3 sm:px-4 sm:py-2 bg-${
-                          tracker.running ? "red" : "green"
-                        }-500 text-white rounded hover:bg-${
-        tracker.running ? "red" : "green"
-      }-600 transition" 
-                                data-index="${index}"
-                                aria-label="${
-                                  tracker.running ? "Stop" : "Start"
-                                } tracker">
-                            ${tracker.running ? "Stop" : "Start"}
-                        </button>
-                        <button class="restart-btn px-6 py-3 sm:px-4 sm:py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition" 
-                                data-index="${index}"
-                                aria-label="Restart tracker">
-                            Restart
-                        </button>
-                        <button class="delete-btn px-6 py-3 sm:px-4 sm:py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition" 
-                                data-index="${index}"
-                                aria-label="Delete tracker">
-                            Delete
-                        </button>
-                    </div>
-                </div>
-                <div class="text-gray-700">
-                    <label for="elapsed-time-${index}" class="inline-block mr-2">Elapsed Time:</label>
-                    <input type="text" id="elapsed-time-${index}" class="elapsed-time border p-2 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none" 
-                           data-index="${index}" 
-                           value="${formatTime(tracker.elapsed)}" 
-                           aria-label="Elapsed time" />
-                </div>
-            `;
+    // Create array with original indices to maintain data integrity
+    const trackersWithIndex = trackers.map((tracker, index) => ({
+      tracker,
+      originalIndex: index,
+    }));
 
+    // Sort: active (running) trackers first, then inactive
+    trackersWithIndex.sort((a, b) => {
+      if (a.tracker.running && !b.tracker.running) return -1;
+      if (!a.tracker.running && b.tracker.running) return 1;
+      return 0; // Keep relative order for same state
+    });
+
+    // Render sorted trackers
+    trackersWithIndex.forEach(({ tracker, originalIndex }) => {
+      const trackerElement = createTrackerElement(tracker, originalIndex);
+      // Add visual indicator for running trackers
+      if (tracker.running) {
+        trackerElement.classList.add("ring-2", "ring-green-500");
+      }
       trackerContainer.appendChild(trackerElement);
     });
   }

@@ -4,24 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Watchy - A simple, lightweight time tracker application for work and personal projects.">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Watchy - Free, lightweight time tracker for work and personal projects. Track multiple tasks, export to CSV/TXT, works offline. No signup required.">
     <meta name="author" content="Gabriel Kanev">
-    <meta name="keywords" content="time tracker, productivity, time management, work tracking, time logging">
-    <meta name="theme-color" content="#3B82F6">
-    <meta property="og:title" content="Watchy - Time Tracker">
-    <meta property="og:description"
-        content="Track your time easily with Watchy - a lightweight, browser-based time tracking solution.">
+    <meta name="keywords" content="time tracker, productivity, time management, work tracking, time logging, free time tracker, task timer, project tracking, pomodoro, timesheet, hours tracker">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#3B82F6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1F2937" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="light dark">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Watchy - Free Time Tracker | Track Work Hours Easily">
+    <meta property="og:description" content="Free, lightweight time tracking app. Track multiple tasks, export data, works offline. No signup needed.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://watchy.gkanev.com">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Watchy - Time Tracker">
-    <meta name="twitter:description"
-        content="Track your time easily with Watchy - a lightweight, browser-based time tracking solution.">
-    <title>Watchy - Time Tracker</title>
+    <meta property="og:site_name" content="Watchy">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://watchy.gkanev.com/assets/img/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Watchy - Free Time Tracker">
+    <meta name="twitter:description" content="Track your time easily with Watchy - a lightweight, browser-based time tracking solution.">
+    <title>Watchy - Free Time Tracker | Track Work Hours Easily</title>
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+
+    <!-- Stylesheets -->
     <link href="/assets/style.min.css" rel="stylesheet">
+
+    <!-- Favicon & Icons -->
     <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" id="favicon">
-    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Canonical URL -->
     <link rel="canonical" href="https://watchy.gkanev.com">
 </head>
 
@@ -29,7 +51,20 @@
     <div class="container mx-auto">
         <header class="mb-6">
             <div class="flex flex-col sm:flex-row justify-between items-center">
-                <h1 class="text-2xl font-bold mb-4 sm:mb-0">Watchy - Time Tracker</h1>
+                <div class="flex items-center gap-3 mb-4 sm:mb-0">
+                    <h1 class="text-2xl font-bold">Watchy - Time Tracker</h1>
+                    <button id="theme-toggle"
+                        class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                        aria-label="Toggle dark/light theme"
+                        title="Toggle theme">
+                        <svg id="theme-icon-light" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                        <svg id="theme-icon-dark" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+                </div>
                 <div class="flex flex-wrap gap-2 w-full sm:w-auto">
                     <div class="w-full sm:w-auto flex flex-wrap gap-2">
                         <button id="add-tracker"
@@ -66,15 +101,33 @@
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "Watchy - Time Tracker",
-        "description": "A simple, lightweight time tracker application for work and personal projects.",
+        "name": "Watchy",
+        "alternateName": "Watchy Time Tracker",
+        "description": "Free, lightweight time tracker for work and personal projects. Track multiple tasks simultaneously, export to CSV/TXT, works completely offline with no signup required.",
+        "url": "https://watchy.gkanev.com",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "softwareVersion": "1.0.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
         "author": {
             "@type": "Person",
             "name": "Gabriel Kanev",
             "url": "https://gkanev.com"
         },
-        "applicationCategory": "Productivity",
-        "operatingSystem": "Any"
+        "featureList": [
+            "Track multiple tasks simultaneously",
+            "Export data to CSV and TXT",
+            "Works offline",
+            "No account required",
+            "Keyboard shortcuts",
+            "Dark mode support"
+        ],
+        "screenshot": "https://watchy.gkanev.com/assets/img/og-image.png"
     }
     </script>
 </body>
